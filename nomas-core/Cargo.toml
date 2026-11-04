@@ -1,0 +1,24 @@
+[package]
+name = "nomas-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Core Rust port of Hy-Nomas: segmented autoregressive DiT world model with action-aware causal attention and a lifelong KV cache"
+
+[dependencies]
+candle-core = "0.11"
+candle-nn = "0.11"
+safetensors = "0.7"
+thiserror = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+
+[features]
+default = []
+# Forwarded to candle so GPU builds can enable CUDA kernels. Requires the
+# CUDA toolkit; not exercised on CPU-only CI.
+cuda = ["candle-core/cuda", "candle-nn/cuda"]
+
+[[example]]
+name = "tiny_rollout"
+path = "examples/tiny_rollout.rs"
